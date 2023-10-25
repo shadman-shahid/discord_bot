@@ -7,7 +7,7 @@ __pycache__
 *.xls
 json_passed
 .env
-venv
+minimal_env
 cogs
 .ipynb_checkpoints
 data
