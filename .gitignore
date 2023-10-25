@@ -1,7 +1,15 @@
 credentials.json
-client_secret.json
+info.json
+discord_test.ipynb
+client_secrets.json
 sheets.googleapis.com-python.json
 __pycache__
 *.xls
 json_passed
 .env
+venv
+cogs
+.ipynb_checkpoints
+data
+.idea
+__pycache__
