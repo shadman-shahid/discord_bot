@@ -1,6 +1,7 @@
 import dotenv
 import os
 from urllib.parse import urlparse, parse_qs
+import re
 
 import discord
 from discord.interactions import Interaction
@@ -37,10 +38,11 @@ async def get_assignment(user, assignment_no, drive_link, ctx=None, interaction=
 
     parsed_url = urlparse(drive_link)
     if parsed_url.query:
-        folder_id = parse_qs(parsed_url.query).get('id')[0]
-    else:
-        path_segments = parsed_url.path.split('/')
-        folder_id = path_segments[-1] if len(path_segments) > 1 else None
+        try:
+            folder_id = parse_qs(parsed_url.query).get('id')[0]
+        except (TypeError):
+            path_segments = parsed_url.path.split('/')
+            folder_id = path_segments[-1] if len(path_segments) > 1 else None
 
     file_list = drive.ListFile({'q': f"'{folder_id}' in parents and trashed=false"}).GetList()
 
@@ -51,7 +53,9 @@ async def get_assignment(user, assignment_no, drive_link, ctx=None, interaction=
     """Implement the logic here. I'm not sure, how student members are verified, in any case, that code will go here. 
     For now, I am just using a randon student ID. """
 
-    student_id = '18101309'
+
+    # student_id = '22301728'
+    student_id = re.search(r"[0-9]{8}", user.display_name).group(0)
     file_id = 0
     for (file_link, (i, filename)) in zip(file_links, file_id_names):
         if student_id in filename:
@@ -60,10 +64,10 @@ async def get_assignment(user, assignment_no, drive_link, ctx=None, interaction=
             break
     if file_id:
         # Send the assignment file
-        await send_message(f"{user}'s Assignment No. {assignment_no} is available at: {desired_link}")
+        await send_message(f"{user.mention}'s Assignment No. {assignment_no} is available at: {desired_link}", ephemeral=True)
     else:
         await send_message(
-            "Assignment not found! Perhaps you did not submit the assignment. Otherwise, contact faculty.")
+            "Assignment not found! Perhaps you did not submit the assignment. Otherwise, contact faculty.", ephemeral=True)
 
 
 class GetAssignmentButton(discord.ui.Button):
@@ -97,5 +101,10 @@ async def return_assignments(ctx, assignment_no, drive_link):
         f" Press the button below to get your checked copy of assignment {assignment_no}.",
         view=button_view
     )
+
+
+
+
+
 
 bot.run(token)
