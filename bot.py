@@ -9,8 +9,15 @@ from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 
 """Google drive authorization"""
+## Uses authentication settings in 'settings.yaml'.
 gauth = GoogleAuth()
-gauth.LocalWebserverAuth()  # Uses client_secrets.json file created in the code directory. In any case, the bot just needs access to the drive folder, which the teacher will provide.
+
+## Authenticate via web browser
+# gauth.LocalWebserverAuth()  # Uses client_secrets.json file. 
+
+## Authenticate a service account
+gauth.ServiceAuth()
+
 drive = GoogleDrive(gauth)
 
 

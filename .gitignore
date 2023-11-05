@@ -1,4 +1,6 @@
 credentials.json
+service-secrets.json
+settings.yaml
 info.json
 discord_test.ipynb
 client_secrets.json
