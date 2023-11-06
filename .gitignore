@@ -1,17 +1,32 @@
-credentials.json
-service-secrets.json
+# Google authentication related credential files
 settings.yaml
-info.json
-discord_test.ipynb
 client_secrets.json
+service-secrets.json
+credentials.json
+
+# BRACU discord server information files 
+info.json
+
+# Test Jupyter notebook files - not available in deployed version
+discord_test.ipynb
+.ipynb_checkpoints
+
+# pygsheets json
 sheets.googleapis.com-python.json
+
+# Pycharm cache
 __pycache__
+.idea
+
+# All excel and data files/folders
 *.xls
-json_passed
+data
+
+# Discord test folder
+cogs
+
+
+# Environment related files/folders
 .env
 minimal_env
-cogs
-.ipynb_checkpoints
-data
-.idea
-__pycache__
+venv
